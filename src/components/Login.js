@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { axiosWithAuth } from "./../utils/axiosWithAuth";
+import { useHistory } from "react-router-dom";
 
 const initialValue = {
   username: "",
@@ -8,6 +9,7 @@ const initialValue = {
 };
 
 const Login = () => {
+  const { push } = useHistory();
   const [login, setLogin] = useState(initialValue);
   // make a post request to retrieve a token from the api
   // when you have handled the token, navigate to the BubblePage route
@@ -26,6 +28,7 @@ const Login = () => {
       .then((res) => {
         console.log(res.data.payload);
         localStorage.setItem("token", res.data.payload);
+        push("/colors");
       })
       .catch((err) => {
         console.log(err);
